@@ -5,6 +5,16 @@ import json
 config = dotenv_values(".env")
 API_KEY = config["API_KEY"]
 
+def getStatus():
+    url = f"https://v3.football.api-sports.io/status"
+    payload = {}
+    headers = {
+        'x-rapidapi-key': API_KEY,
+        'x-rapidapi-host': 'v3.football.api-sports.io'
+    }
+    response = requests.request("GET", url, headers=headers, data=payload)
+    print(response.text)
+
 def getLeagueID(league_name):
     url = f"https://v3.football.api-sports.io/leagues?name={league_name}"
     payload = {}
@@ -18,6 +28,30 @@ def getLeagueID(league_name):
         print("No league or multiple leagues found")
     return data["response"][0]["league"]["id"]
 
+def getTeams(league_id, season):
+    url = f"https://v3.football.api-sports.io/teams?league={league_id}&season={season}"
+    payload = {}
+    headers = {
+        'x-rapidapi-key': API_KEY,
+        'x-rapidapi-host': 'v3.football.api-sports.io'
+    }
+    response = requests.request("GET", url, headers=headers, data=payload)
+    data = response.json()
+    return data
 
-id = getLeagueID("Veikkausliiga")
-print(id)
+def getTeamStats(league_id, team_id, season):
+    url = f"https://v3.football.api-sports.io/teams/statistics?league={league_id}&team={team_id}&season={season}"
+    payload = {}
+    headers = {
+        'x-rapidapi-key': API_KEY,
+        'x-rapidapi-host': 'v3.football.api-sports.io'
+    }
+    response = requests.request("GET", url, headers=headers, data=payload)
+    data = response.json()
+    return data
+
+#getStatus()
+#id = getLeagueID("Veikkausliiga")
+id = 244
+ifkMariehamn = getTeamStats(id, 587, 2021)
+print(ifkMariehamn)

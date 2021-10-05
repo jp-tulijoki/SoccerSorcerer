@@ -67,7 +67,7 @@ def getTeamStats(league_id, season, team_id):
     data = response.json()
     return data
 
-# Save team stats to a .csv, stats and disred file name given
+# Save team stats to a .csv, stats and file name given
 def saveTeamStatsCSV(data, name):
     df = pd.json_normalize(data["response"])
     df.to_csv(name + ".csv", sep=",")

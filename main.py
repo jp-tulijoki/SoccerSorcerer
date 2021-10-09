@@ -91,7 +91,18 @@ def saveTeamStatsCSV(teams, name):
 #saveTeamStatsCSV(teams, "stats")
 
 df = pd.read_csv("stats.csv")
-print(df.columns)
+
+
+probabilities = pd.DataFrame({"team": df["team.name"], "overall_wins": df["fixtures.wins.total"] / df["fixtures.played.total"],
+                "home_wins": df["fixtures.wins.home"] / df["fixtures.played.home"], 
+                "away_wins": df["fixtures.wins.away"] / df["fixtures.played.away"],
+                "overall_draws": df["fixtures.draws.total"] / df["fixtures.played.total"],
+                "home_draws": df["fixtures.draws.home"] / df["fixtures.played.home"], 
+                "away_draws": df["fixtures.draws.away"] / df["fixtures.played.away"],
+                "overall_loses": df["fixtures.loses.total"] / df["fixtures.played.total"],
+                "home_loses": df["fixtures.loses.home"] / df["fixtures.played.home"], 
+                "away_loses": df["fixtures.loses.away"] / df["fixtures.played.away"]})
+print(probabilities)
 
 #df = pd.read_csv("mariehamn.csv")
 #print(df.keys().to_numpy())

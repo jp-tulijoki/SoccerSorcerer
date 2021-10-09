@@ -2,6 +2,7 @@ import requests
 from dotenv import dotenv_values
 import json
 import pandas as pd
+from time import sleep
 
 #   In your .env you need to have two values:
 #       API_KEY, your personal key for the API
@@ -26,13 +27,13 @@ def makeUrl(endpoint):
     else:
         raise Exception("Unknown API_URL, check your .env!")
 
-# Does this endpoint exist? The rapidapi version says it doesn't
-""" def getStatus():
-    url = make_url("/status")
+# Works for api sports at least
+def getStatus():
+    url = makeUrl("/status")
     querystring = {}
     response = requests.request("GET", url, headers=headers, params=querystring)
     data = response.json()
-    return data """
+    return data
 
 def getLeagueID(league_name):
     url = makeUrl("/leagues")
@@ -68,16 +69,35 @@ def getTeamStats(league_id, season, team_id):
     return data
 
 # Save team stats to a .csv, stats and file name given
-def saveTeamStatsCSV(data, name):
-    df = pd.json_normalize(data["response"])
+def saveTeamStatsCSV(teams, name):
+    first_team_id = teams["response"][0]["team"]["id"]
+    first_team_stats = getTeamStats(244, 2021, first_team_id)
+    df = pd.json_normalize(first_team_stats["response"])
+    for team_item in teams["response"][1:6]:
+        team_id = team_item["team"]["id"]
+        team_stats = getTeamStats(244, 2021, team_id)
+        next_row = pd.json_normalize(team_stats["response"])
+        df = df.append(next_row, ignore_index=True)
+    sleep(70) # due to api calls limit
+    for team_item in teams["response"][6:]:
+        team_id = team_item["team"]["id"]
+        team_stats = getTeamStats(244, 2021, team_id)
+        next_row = pd.json_normalize(team_stats["response"])
+        df = df.append(next_row, ignore_index=True)
     df.to_csv(name + ".csv", sep=",")
 
-saveTeamStatsCSV(getTeamStats(244, 2021, 587), "mariehamn")
 
-df = pd.read_csv("mariehamn.csv")
+#teams = getTeams(244, 2021)
+#saveTeamStatsCSV(teams, "stats")
+
+df = pd.read_csv("stats.csv")
+print(df.columns)
+
+#df = pd.read_csv("mariehamn.csv")
 #print(df.keys().to_numpy())
 
-print(df['penalty.scored.total'][0])
-print(df['biggest.loses.away'][0])
-print(df['goals.for.minute.61-75.percentage'][0])
-print(df['failed_to_score.away'][0])
+#print(df.columns)
+#print(df['penalty.scored.total'][0])
+#print(df['biggest.loses.away'][0])
+#print(df['goals.for.minute.61-75.percentage'][0])
+#print(df['failed_to_score.away'][0])

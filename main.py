@@ -102,7 +102,18 @@ probabilities = pd.DataFrame({"team": df["team.name"], "overall_wins": df["fixtu
                 "overall_loses": df["fixtures.loses.total"] / df["fixtures.played.total"],
                 "home_loses": df["fixtures.loses.home"] / df["fixtures.played.home"], 
                 "away_loses": df["fixtures.loses.away"] / df["fixtures.played.away"]})
-print(probabilities)
+
+while True:
+    print("Teams")
+    print(probabilities["team"])
+    home_index = int(input("Home team index:"))
+    away_index = int(input("Away team index:"))
+    home_team = probabilities.iloc[home_index, :]
+    away_team = probabilities.iloc[away_index, :]
+    home_win = (home_team["overall_wins"] + away_team["overall_loses"] + home_team["home_wins"] + away_team["away_loses"]) / 4
+    draw = (home_team["overall_draws"] + away_team["overall_draws"] + home_team["home_draws"] + away_team["away_draws"]) / 4
+    away_win = (home_team["overall_loses"] + away_team["overall_wins"] + home_team["home_loses"] + away_team["away_wins"]) / 4
+    print(f"Probabilities:\n Home team wins: {home_win}\n Draw: {draw}\n Away team wins {away_win}")
 
 #df = pd.read_csv("mariehamn.csv")
 #print(df.keys().to_numpy())

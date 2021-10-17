@@ -86,11 +86,23 @@ def saveTeamStatsCSV(teams, name):
         df = df.append(next_row, ignore_index=True)
     df.to_csv(name + ".csv", sep=",")
 
+def getAllFixturesCSV(league_id, season):
+    url = makeUrl("/fixtures")
+    querystring = {
+        "league" : league_id,
+        "season" : season,
+    }
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    data = response.json()
+    df = pd.json_normalize(data["response"])
+    df.to_csv("fixtures.csv", sep=",")
+
+#getAllFixturesCSV(244, 2021)
 
 #teams = getTeams(244, 2021)
 #saveTeamStatsCSV(teams, "stats")
 
-df = pd.read_csv("stats.csv")
+""" df = pd.read_csv("stats.csv")
 
 
 probabilities = pd.DataFrame({"team": df["team.name"], "overall_wins": df["fixtures.wins.total"] / df["fixtures.played.total"],
@@ -113,7 +125,7 @@ while True:
     home_win = (home_team["overall_wins"] + away_team["overall_loses"] + home_team["home_wins"] + away_team["away_loses"]) / 4
     draw = (home_team["overall_draws"] + away_team["overall_draws"] + home_team["home_draws"] + away_team["away_draws"]) / 4
     away_win = (home_team["overall_loses"] + away_team["overall_wins"] + home_team["home_loses"] + away_team["away_wins"]) / 4
-    print(f"Probabilities:\n Home team wins: {home_win}\n Draw: {draw}\n Away team wins {away_win}")
+    print(f"Probabilities:\n Home team wins: {home_win}\n Draw: {draw}\n Away team wins {away_win}") """
 
 #df = pd.read_csv("mariehamn.csv")
 #print(df.keys().to_numpy())

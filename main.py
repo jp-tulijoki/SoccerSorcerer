@@ -2,7 +2,10 @@ import requests
 from dotenv import dotenv_values
 import json
 import pandas as pd
+import numpy as np
 from time import sleep
+
+from requests.api import head
 
 #   In your .env you need to have two values:
 #       API_KEY, your personal key for the API
@@ -97,13 +100,40 @@ def getAllFixturesCSV(league_id, season):
     df = pd.json_normalize(data["response"])
     df.to_csv("fixtures.csv", sep=",")
 
+def getHeadToHeadStats(fixture_file, teams):
+    head_to_heads = pd.DataFrame(index=teams, columns=teams)
+    head_to_heads = head_to_heads.fillna("")
+    head_to_heads.index.name = "away team"
+    head_to_heads.columns.name = "home_team"
+
+    fixtures = pd.read_csv(fixture_file)
+    fixtures = fixtures[(fixtures["fixture.status.long"] == "Match Finished")]
+    home_team = fixtures.columns.get_loc("teams.home.name")
+    away_team = fixtures.columns.get_loc("teams.away.name")
+    home_goals = fixtures.columns.get_loc("goals.home")
+    away_goals = fixtures.columns.get_loc("goals.away")
+    for fixture in fixtures.itertuples(index=False):
+        if fixture[home_goals] > fixture[away_goals]:
+            head_to_heads[fixture[home_team]][fixture[away_team]] += "W"
+        elif fixture[home_goals] < fixture[away_goals]:
+            head_to_heads[fixture[home_team]][fixture[away_team]] += "L"
+        else:
+            head_to_heads[fixture[home_team]][fixture[away_team]] += "D"
+    return head_to_heads
+
+
+df = pd.read_csv("stats.csv")
+teams = df["team.name"]
+
+print(getHeadToHeadStats("fixtures.csv", teams))
+
 #getAllFixturesCSV(244, 2021)
 
 #teams = getTeams(244, 2021)
 #saveTeamStatsCSV(teams, "stats")
 
-""" df = pd.read_csv("stats.csv")
 
+""" 
 
 probabilities = pd.DataFrame({"team": df["team.name"], "overall_wins": df["fixtures.wins.total"] / df["fixtures.played.total"],
                 "home_wins": df["fixtures.wins.home"] / df["fixtures.played.home"], 
@@ -125,8 +155,8 @@ while True:
     home_win = (home_team["overall_wins"] + away_team["overall_loses"] + home_team["home_wins"] + away_team["away_loses"]) / 4
     draw = (home_team["overall_draws"] + away_team["overall_draws"] + home_team["home_draws"] + away_team["away_draws"]) / 4
     away_win = (home_team["overall_loses"] + away_team["overall_wins"] + home_team["home_loses"] + away_team["away_wins"]) / 4
-    print(f"Probabilities:\n Home team wins: {home_win}\n Draw: {draw}\n Away team wins {away_win}") """
-
+    print(f"Probabilities:\n Home team wins: {home_win}\n Draw: {draw}\n Away team wins {away_win}")
+ """
 #df = pd.read_csv("mariehamn.csv")
 #print(df.keys().to_numpy())
 

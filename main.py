@@ -121,11 +121,17 @@ def getHeadToHeadStats(fixture_file, teams):
             head_to_heads[fixture[home_team]][fixture[away_team]] += "D"
     return head_to_heads
 
+def countHeadToHeadProbability(head_to_head_stats, home_team, away_team):
+    history = head_to_head_stats[home_team][away_team]
+    probabilities = (history.count("W") / len(history), history.count("D") / len(history), history.count("L") / len(history))
+    return probabilities
 
 df = pd.read_csv("stats.csv")
 teams = df["team.name"]
 
-print(getHeadToHeadStats("fixtures.csv", teams))
+head_to_head = getHeadToHeadStats("fixtures.csv", teams)
+head_to_head_probabilities = countHeadToHeadProbability(head_to_head, "haka", "AC oulu")
+
 
 #getAllFixturesCSV(244, 2021)
 
@@ -133,9 +139,8 @@ print(getHeadToHeadStats("fixtures.csv", teams))
 #saveTeamStatsCSV(teams, "stats")
 
 
-""" 
 
-probabilities = pd.DataFrame({"team": df["team.name"], "overall_wins": df["fixtures.wins.total"] / df["fixtures.played.total"],
+overall_probabilities = pd.DataFrame({"team": df["team.name"], "overall_wins": df["fixtures.wins.total"] / df["fixtures.played.total"],
                 "home_wins": df["fixtures.wins.home"] / df["fixtures.played.home"], 
                 "away_wins": df["fixtures.wins.away"] / df["fixtures.played.away"],
                 "overall_draws": df["fixtures.draws.total"] / df["fixtures.played.total"],
@@ -147,16 +152,20 @@ probabilities = pd.DataFrame({"team": df["team.name"], "overall_wins": df["fixtu
 
 while True:
     print("Teams")
-    print(probabilities["team"])
+    print(overall_probabilities["team"])
     home_index = int(input("Home team index:"))
     away_index = int(input("Away team index:"))
-    home_team = probabilities.iloc[home_index, :]
-    away_team = probabilities.iloc[away_index, :]
-    home_win = (home_team["overall_wins"] + away_team["overall_loses"] + home_team["home_wins"] + away_team["away_loses"]) / 4
-    draw = (home_team["overall_draws"] + away_team["overall_draws"] + home_team["home_draws"] + away_team["away_draws"]) / 4
-    away_win = (home_team["overall_loses"] + away_team["overall_wins"] + home_team["home_loses"] + away_team["away_wins"]) / 4
+    home_team = overall_probabilities.iloc[home_index, :]
+    away_team = overall_probabilities.iloc[away_index, :]
+    home_team_name = overall_probabilities["team"][home_index]
+    away_team_name = overall_probabilities["team"][away_index]
+    head_to_head_probabilities = countHeadToHeadProbability(head_to_head, home_team_name, away_team_name)
+    print(head_to_head_probabilities)
+    home_win = (home_team["overall_wins"] + away_team["overall_loses"] + home_team["home_wins"] + away_team["away_loses"] + head_to_head_probabilities[0]) / 5
+    draw = (home_team["overall_draws"] + away_team["overall_draws"] + home_team["home_draws"] + away_team["away_draws"] + head_to_head_probabilities[1]) / 5
+    away_win = (home_team["overall_loses"] + away_team["overall_wins"] + home_team["home_loses"] + away_team["away_wins"] + + head_to_head_probabilities[2]) / 5
     print(f"Probabilities:\n Home team wins: {home_win}\n Draw: {draw}\n Away team wins {away_win}")
- """
+
 #df = pd.read_csv("mariehamn.csv")
 #print(df.keys().to_numpy())
 

@@ -1,3 +1,4 @@
 .env
 soccerenv
 *.csv
+__pycache__

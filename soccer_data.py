@@ -98,7 +98,7 @@ def getAllFixturesCSV(league_id, season):
     response = requests.request("GET", url, headers=headers, params=querystring)
     data = response.json()
     df = pd.json_normalize(data["response"])
-    df.to_csv("fixtures.csv", sep=",")
+    df.to_csv(f"fixtures{season}.csv", sep=",")
 
 def getHeadToHeadStats(fixture_file, teams):
     head_to_heads = pd.DataFrame(index=teams, columns=teams)
@@ -113,6 +113,8 @@ def getHeadToHeadStats(fixture_file, teams):
     home_goals = fixtures.columns.get_loc("goals.home")
     away_goals = fixtures.columns.get_loc("goals.away")
     for fixture in fixtures.itertuples(index=False):
+        if fixture[home_team] not in head_to_heads.columns or fixture[away_team] not in head_to_heads.columns:
+            continue
         if fixture[home_goals] > fixture[away_goals]:
             head_to_heads[fixture[home_team]][fixture[away_team]] += "W"
         elif fixture[home_goals] < fixture[away_goals]:
@@ -120,3 +122,25 @@ def getHeadToHeadStats(fixture_file, teams):
         else:
             head_to_heads[fixture[home_team]][fixture[away_team]] += "D"
     return head_to_heads
+
+def getUpcomingFixtures(fixture_file):
+    fixtures = pd.read_csv(fixture_file)
+    return fixtures[(fixtures["fixture.status.long"] == "Not Started")]
+
+
+#getAllFixturesCSV(244, 2019)
+#getAllFixturesCSV(244, 2020)
+#getAllFixturesCSV(244, 2021)
+
+stats = pd.read_csv("stats.csv")
+teams = stats["team.name"]
+
+hth_stats_2019 = getHeadToHeadStats("fixtures2019.csv", teams)
+hth_stats_2020 = getHeadToHeadStats("fixtures2020.csv", teams)
+hth_stats_2021 = getHeadToHeadStats("fixtures2021.csv", teams)
+
+hth_stats = hth_stats_2019 + hth_stats_2020 + hth_stats_2021
+print(hth_stats)
+
+upcoming = getUpcomingFixtures("fixtures2021.csv")
+print(upcoming)

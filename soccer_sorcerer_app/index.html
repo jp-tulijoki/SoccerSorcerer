@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Soccer Sorcerer</title>
+  </head>
+
+  <body>
+    <h1>Soccer Sorcerer</h1>
+    <h2>Select match</h2>
+
+    <form method="POST" action="/predict">
+      {% csrf_token %}
+      <label for="homeTeam">Home team</label>
+      <select type="text" id="homeTeam" name="homeTeam">
+        <option>AC Oulu</option>
+        <option>FC Lahti</option>
+        <option>Haka</option>
+        <option>HIFK</option>
+        <option>HJK</option>
+        <option>Honka</option>
+        <option>IFK Mariehamn</option>
+        <option>Ilves Tampere</option>
+        <option>Inter Turku</option>
+        <option>KTP</option>
+        <option>KuPS</option>
+        <option>SJK</option>
+      </select>
+      <label for="awayTeam">Away team</label>
+      <select type="text" id="awayTeam" name="awayTeam">
+        <option>AC Oulu</option>
+        <option>FC Lahti</option>
+        <option>Haka</option>
+        <option>HIFK</option>
+        <option>HJK</option>
+        <option>Honka</option>
+        <option>IFK Mariehamn</option>
+        <option>Ilves Tampere</option>
+        <option>Inter Turku</option>
+        <option>KTP</option>
+        <option>KuPS</option>
+        <option>SJK</option>
+      </select>
+      <br /><br />
+      <input type="submit" value="Submit!" />
+    </form>
+
+    {% if error %}
+    <p>{{error}}</p>
+    {% endif %} {% if home_win %}
+    <h2>Probabilities for {{home_team}} vs {{away_team}}:</h2>
+    <p>Home win: {{home_win}} Draw: {{draw}} Away win: {{away_win}}</p>
+    {% endif %}
+  </body>
+</html>

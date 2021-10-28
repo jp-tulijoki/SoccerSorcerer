@@ -20,6 +20,3 @@ def countHeadToHeadProbability(head_to_head_stats, home_team, away_team):
     history = head_to_head_stats[home_team][away_team]
     probabilities = (history.count("W") / len(history), history.count("D") / len(history), history.count("L") / len(history))
     return probabilities
-
-df = pd.read_csv("stats.csv")
-print(countHomeAwayProbabilities(df, "HJK helsinki", "IFK Mariehamn"))

@@ -140,7 +140,5 @@ hth_stats_2020 = getHeadToHeadStats("fixtures2020.csv", teams)
 hth_stats_2021 = getHeadToHeadStats("fixtures2021.csv", teams)
 
 hth_stats = hth_stats_2019 + hth_stats_2020 + hth_stats_2021
-print(hth_stats)
 
 upcoming = getUpcomingFixtures("fixtures2021.csv")
-print(upcoming)

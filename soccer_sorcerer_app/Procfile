@@ -1,0 +1,1 @@
+web: gunicorn soccer_sorcerer_app.wsgi

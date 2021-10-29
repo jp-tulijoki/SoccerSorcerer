@@ -1,6 +1,7 @@
 from pathlib import Path
 from dotenv import dotenv_values
 import os
+import django_heroku
 
 
 config = dotenv_values(".env")
@@ -87,3 +88,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+django_heroku.settings(locals())

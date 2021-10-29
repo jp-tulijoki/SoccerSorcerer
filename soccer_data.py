@@ -1,7 +1,6 @@
 import requests
 from dotenv import dotenv_values
 import json
-import ast
 import pandas as pd
 import numpy as np
 from time import sleep

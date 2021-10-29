@@ -1,0 +1,13 @@
+,rank,points,goalsDiff,group,form,status,description,update,team.id,team.name,team.logo,all.played,all.win,all.draw,all.lose,all.goals.for,all.goals.against,home.played,home.win,home.draw,home.lose,home.goals.for,home.goals.against,away.played,away.win,away.draw,away.lose,away.goals.for,away.goals.against
+0,1,42,14,Veikkausliiga: Regular Season,WWWLW,,Championship Round,2019-11-03T00:00:00+00:00,1164,Inter Turku,https://media.api-sports.io/football/teams/1164.png,22,13,3,6,39,25,11,8,1,2,23,11,11,5,2,4,16,14
+1,2,40,16,Veikkausliiga: Regular Season,WWWWD,,Championship Round,2019-11-03T00:00:00+00:00,1165,KuPS,https://media.api-sports.io/football/teams/1165.png,22,11,7,4,39,23,11,5,4,2,19,9,11,6,3,2,20,14
+2,3,40,11,Veikkausliiga: Regular Season,LWDLW,,Championship Round,2019-11-03T00:00:00+00:00,1163,Ilves Tampere,https://media.api-sports.io/football/teams/1163.png,22,11,7,4,29,18,11,4,5,2,15,10,11,7,2,2,14,8
+3,4,34,6,Veikkausliiga: Regular Season,DWLWD,,Championship Round,2019-11-03T00:00:00+00:00,649,HJK helsinki,https://media.api-sports.io/football/teams/649.png,22,8,10,4,28,22,11,4,6,1,18,11,11,4,4,3,10,11
+4,5,34,4,Veikkausliiga: Regular Season,WLLDW,,Championship Round,2019-11-03T00:00:00+00:00,1169,Honka,https://media.api-sports.io/football/teams/1169.png,22,10,4,8,31,27,11,4,2,5,13,12,11,6,2,3,18,15
+5,6,31,6,Veikkausliiga: Regular Season,WWLWL,,Championship Round,2019-11-03T00:00:00+00:00,587,IFK Mariehamn,https://media.api-sports.io/football/teams/587.png,22,9,4,9,29,23,11,4,1,6,14,15,11,5,3,3,15,8
+6,7,28,-6,Veikkausliiga: Regular Season,LLDLD,,Relegation Round,2019-11-03T00:00:00+00:00,689,SJK,https://media.api-sports.io/football/teams/689.png,22,7,7,8,17,23,11,4,2,5,7,11,11,3,5,3,10,12
+7,8,28,-8,Veikkausliiga: Regular Season,LLWLW,,Relegation Round,2019-11-03T00:00:00+00:00,1166,FC Lahti,https://media.api-sports.io/football/teams/1166.png,22,7,7,8,21,29,11,4,5,2,15,11,11,3,2,6,6,18
+8,9,26,-4,Veikkausliiga: Regular Season,LLDLW,,Relegation Round,2019-11-03T00:00:00+00:00,1172,HIFK Elsinki,https://media.api-sports.io/football/teams/1172.png,22,6,8,8,25,29,11,5,4,2,14,11,11,1,4,6,11,18
+9,10,24,-6,Veikkausliiga: Regular Season,DWDWD,,Relegation Round,2019-11-03T00:00:00+00:00,1167,Rops,https://media.api-sports.io/football/teams/1167.png,22,6,6,10,19,25,11,3,2,6,9,11,11,3,4,4,10,14
+10,11,16,-20,Veikkausliiga: Regular Season,LLWLL,,Relegation Round,2019-11-03T00:00:00+00:00,2081,KPV Kokkola,https://media.api-sports.io/football/teams/2081.png,22,4,4,14,19,39,11,3,2,6,9,17,11,1,2,8,10,22
+11,12,15,-13,Veikkausliiga: Regular Season,WLWLL,,Relegation Round,2019-11-03T00:00:00+00:00,650,vaasa PS,https://media.api-sports.io/football/teams/650.png,22,2,9,11,22,35,11,2,4,5,15,18,11,0,5,6,7,17

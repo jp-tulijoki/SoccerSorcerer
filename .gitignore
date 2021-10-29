@@ -1,5 +1,7 @@
 .env
 soccerenv
 *.csv
-!data/*.csv
+!data/weather/*.csv
+!data/fixtures/*.csv
+!data/standings/*.csv
 __pycache__

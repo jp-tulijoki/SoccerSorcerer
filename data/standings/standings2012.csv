@@ -1,0 +1,13 @@
+,rank,points,goalsDiff,group,form,status,description,update,team.id,team.name,team.logo,all.played,all.win,all.draw,all.lose,all.goals.for,all.goals.against,home.played,home.win,home.draw,home.lose,home.goals.for,home.goals.against,away.played,away.win,away.draw,away.lose,away.goals.for,away.goals.against
+0,1,64,30,Veikkausliiga,WWWWD,same,UEFA Champions League Qualifiers,2018-02-15T00:00:00+00:00,649,HJK helsinki,https://media.api-sports.io/football/teams/649.png,33,19,7,7,63,33,17,12,5,0,36,10,16,7,2,7,27,23
+1,2,58,15,Veikkausliiga,LDWWL,same,UEFA Europa League,2018-02-15T00:00:00+00:00,1164,Inter Turku,https://media.api-sports.io/football/teams/1164.png,33,17,7,9,57,42,17,11,4,2,31,19,16,6,3,7,26,23
+2,3,54,22,Veikkausliiga,LDLWL,same,UEFA Europa League,2018-02-15T00:00:00+00:00,1168,Turku PS,https://media.api-sports.io/football/teams/1168.png,33,16,6,11,55,33,17,11,1,5,38,17,16,5,5,6,17,16
+3,4,51,7,Veikkausliiga,DDWLL,same,,2018-02-15T00:00:00+00:00,587,IFK Mariehamn,https://media.api-sports.io/football/teams/587.png,33,13,12,8,50,43,16,8,8,0,23,11,17,5,4,8,27,32
+4,5,50,-4,Veikkausliiga,WLWLW,same,,2018-02-15T00:00:00+00:00,1166,FC Lahti,https://media.api-sports.io/football/teams/1166.png,33,16,2,15,45,49,16,12,1,3,26,17,17,4,1,12,19,32
+5,6,49,6,Veikkausliiga,DWLDD,same,,2018-02-15T00:00:00+00:00,2243,MyPa,https://media.api-sports.io/football/teams/2243.png,33,13,10,10,39,33,16,9,5,2,23,12,17,4,5,8,16,21
+6,7,43,-1,Veikkausliiga,WLWLD,up,,2018-02-15T00:00:00+00:00,1169,Honka,https://media.api-sports.io/football/teams/1169.png,33,12,7,14,37,38,17,9,4,4,26,18,16,3,3,10,11,20
+7,8,43,-2,Veikkausliiga,LLLDW,down,,2018-02-15T00:00:00+00:00,650,vaasa PS,https://media.api-sports.io/football/teams/650.png,33,12,7,14,36,38,16,7,1,8,19,22,17,5,6,6,17,16
+8,9,40,-11,Veikkausliiga,LLWLW,same,,2018-02-15T00:00:00+00:00,1171,JJK,https://media.api-sports.io/football/teams/1171.png,33,12,4,17,54,65,17,7,2,8,31,36,16,5,2,9,23,29
+9,10,36,-14,Veikkausliiga,LWLDW,same,,2018-02-15T00:00:00+00:00,1165,KuPS,https://media.api-sports.io/football/teams/1165.png,33,10,6,17,39,53,17,6,3,8,20,29,16,4,3,9,19,24
+10,11,33,-23,Veikkausliiga,WDLWL,same,,2018-02-15T00:00:00+00:00,2075,FF Jaro,https://media.api-sports.io/football/teams/2075.png,33,8,9,16,28,51,16,5,4,7,12,21,17,3,5,9,16,30
+11,12,32,-25,Veikkausliiga,WWLDD,same,Relegation,2018-02-15T00:00:00+00:00,2080,haka,https://media.api-sports.io/football/teams/2080.png,33,9,5,19,32,57,16,6,3,7,18,20,17,3,2,12,14,37

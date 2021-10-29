@@ -1,21 +1,21 @@
 from numpy.core.numeric import NaN
-import pandas as pd
 from datetime import datetime, timedelta
+import pandas as pd
 
-espoo_weather = pd.read_csv("data/espoo_tapiola_1km.csv")
-hattula_weather = pd.read_csv("data/hattula_lepaa_eituulta_eipilvia_22km.csv")
-helsinki_weather = pd.read_csv("data/helsinki_kaisaniemi_2km.csv")
-kokkola_weather = pd.read_csv("data/kokkola_lentoasema_eisadetta_13km.csv")
-kotka_weather = pd.read_csv("data/kotka_rankki_9km.csv")
-kuopio_weather = pd.read_csv("data/kuopio_savilahti_2km.csv")
-lahti_weather = pd.read_csv("data/lahti_sopenkorpi_eituulta_1km.csv")
-maarianhamina_weather = pd.read_csv("data/maarianhamina_lentoasema_eisadetta_3km.csv")
-oulu_weather = pd.read_csv("data/oulu_oulunsalo_10km.csv")
-rovaniemi_weather = pd.read_csv("data/rovaniemi_rautatieasema_eisadetta_1km.csv")
-seinajoki_weather = pd.read_csv("data/seinajoki_pelmaa_eipilvia_24km.csv")
-tampere_weather = pd.read_csv("data/tampere_harmala_eituulta_4km.csv")
-turku_weather = pd.read_csv("data/turku_artukainen_6km.csv")
-vaasa_weather = pd.read_csv("data/vaasa_klemettila_1km.csv")
+espoo_weather = pd.read_csv("data/weather/espoo_tapiola_1km.csv")
+hattula_weather = pd.read_csv("data/weather/hattula_lepaa_eituulta_eipilvia_22km.csv")
+helsinki_weather = pd.read_csv("data/weather/helsinki_kaisaniemi_2km.csv")
+kokkola_weather = pd.read_csv("data/weather/kokkola_lentoasema_eisadetta_13km.csv")
+kotka_weather = pd.read_csv("data/weather/kotka_rankki_9km.csv")
+kuopio_weather = pd.read_csv("data/weather/kuopio_savilahti_2km.csv")
+lahti_weather = pd.read_csv("data/weather/lahti_sopenkorpi_eituulta_1km.csv")
+maarianhamina_weather = pd.read_csv("data/weather/maarianhamina_lentoasema_eisadetta_3km.csv")
+oulu_weather = pd.read_csv("data/weather/oulu_oulunsalo_10km.csv")
+rovaniemi_weather = pd.read_csv("data/weather/rovaniemi_rautatieasema_eisadetta_1km.csv")
+seinajoki_weather = pd.read_csv("data/weather/seinajoki_pelmaa_eipilvia_24km.csv")
+tampere_weather = pd.read_csv("data/weather/tampere_harmala_eituulta_4km.csv")
+turku_weather = pd.read_csv("data/weather/turku_artukainen_6km.csv")
+vaasa_weather = pd.read_csv("data/weather/vaasa_klemettila_1km.csv")
 
 def form_return_dict(weather, date, venuedist):
     # Rounding the time down when a game begins half past (i.e. 15:30 > 15:00)
@@ -152,5 +152,4 @@ fixtures = fixtures.dropna(subset=["fixture.date", "fixture.venue.name"])
 # Build a draframe using the weather_stats function and combine it with the matches
 weather = fixtures.apply(lambda l: get_weather_stats(l["fixture.date"], l["fixture.venue.name"]), axis=1)
 fixtures = pd.concat([fixtures, weather], axis=1)
-print(fixtures.info)
 fixtures.to_csv('fixtures_with_weather.csv', sep=',')

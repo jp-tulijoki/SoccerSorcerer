@@ -1,0 +1,13 @@
+,rank,points,goalsDiff,group,form,status,description,update,team.id,team.name,team.logo,all.played,all.win,all.draw,all.lose,all.goals.for,all.goals.against,home.played,home.win,home.draw,home.lose,home.goals.for,home.goals.against,away.played,away.win,away.draw,away.lose,away.goals.for,away.goals.against
+0,1,61,15,Veikkausliiga,WWDWD,,UEFA Champions League Qualifiers,2018-02-15T00:00:00+00:00,587,IFK Mariehamn,https://media.api-sports.io/football/teams/587.png,33,17,10,6,40,25,17,9,6,2,23,15,16,8,4,4,17,10
+1,2,58,16,Veikkausliiga,DWDLW,,UEFA Europa League,2018-02-15T00:00:00+00:00,649,HJK helsinki,https://media.api-sports.io/football/teams/649.png,33,16,10,7,52,36,17,11,4,2,35,19,16,5,6,5,17,17
+2,3,57,13,Veikkausliiga,DWDWW,,UEFA Europa League,2018-02-15T00:00:00+00:00,689,SJK,https://media.api-sports.io/football/teams/689.png,33,17,6,10,49,36,17,13,1,3,32,13,16,4,5,7,17,23
+3,4,53,9,Veikkausliiga,LWWWD,,,2018-02-15T00:00:00+00:00,650,vaasa PS,https://media.api-sports.io/football/teams/650.png,33,15,8,10,36,27,16,9,3,4,20,10,17,6,5,6,16,17
+4,5,52,1,Veikkausliiga,LLDDW,,,2018-02-15T00:00:00+00:00,1163,Ilves Tampere,https://media.api-sports.io/football/teams/1163.png,33,15,7,11,36,35,16,9,5,2,20,10,17,6,2,9,16,25
+5,6,50,10,Veikkausliiga,DDWLD,,,2018-02-15T00:00:00+00:00,1167,Rops,https://media.api-sports.io/football/teams/1167.png,33,13,11,9,43,33,17,9,6,2,24,10,16,4,5,7,19,23
+6,7,49,6,Veikkausliiga,WWLLL,,,2018-02-15T00:00:00+00:00,1165,KuPS,https://media.api-sports.io/football/teams/1165.png,33,14,7,12,37,31,16,9,3,4,19,11,17,5,4,8,18,20
+7,8,42,-1,Veikkausliiga,WLDDD,,,2018-02-15T00:00:00+00:00,1166,FC Lahti,https://media.api-sports.io/football/teams/1166.png,33,10,12,11,42,43,17,7,6,4,23,15,16,3,6,7,19,28
+8,9,35,-19,Veikkausliiga,LLDLL,,,2018-02-15T00:00:00+00:00,1170,PS Kemi Kings,https://media.api-sports.io/football/teams/1170.png,33,10,5,18,29,48,16,7,1,8,21,25,17,3,4,10,8,23
+9,10,34,-4,Veikkausliiga,DLDWD,,,2018-02-15T00:00:00+00:00,1172,HIFK Elsinki,https://media.api-sports.io/football/teams/1172.png,33,8,10,15,35,39,16,4,5,7,17,19,17,4,5,8,18,20
+10,11,32,-13,Veikkausliiga,LDDWD,,Relegation Play-off,2018-02-15T00:00:00+00:00,1164,Inter Turku,https://media.api-sports.io/football/teams/1164.png,33,7,11,15,28,41,17,4,7,6,15,20,16,3,4,9,13,21
+11,12,13,-33,Veikkausliiga,WLLLL,,Relegation,2018-02-15T00:00:00+00:00,1173,PK-35 Vantaa,https://media.api-sports.io/football/teams/1173.png,33,4,7,22,32,65,16,2,5,9,16,27,17,2,2,13,16,38

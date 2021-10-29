@@ -1,0 +1,13 @@
+,rank,points,goalsDiff,group,form,status,description,update,team.id,team.name,team.logo,all.played,all.win,all.draw,all.lose,all.goals.for,all.goals.against,home.played,home.win,home.draw,home.lose,home.goals.for,home.goals.against,away.played,away.win,away.draw,away.lose,away.goals.for,away.goals.against
+0,1,48,36,Veikkausliiga,DWWWW,same,Qualification for the Champions League first qualifying round,2020-11-14T00:00:00+00:00,649,HJK helsinki,https://media.api-sports.io/football/teams/649.png,22,14,6,2,53,17,11,6,5,0,27,9,11,8,1,2,26,8
+1,2,41,19,Veikkausliiga,DWWWW,up,Qualification for the Europa Conference League first qualifying round,2020-11-14T00:00:00+00:00,1164,Inter Turku,https://media.api-sports.io/football/teams/1164.png,22,12,5,5,36,17,11,9,1,1,24,6,11,3,4,4,12,11
+2,3,41,13,Veikkausliiga,LLLLW,down,Qualification for the Europa Conference League first qualifying round,2020-11-14T00:00:00+00:00,1165,KuPS,https://media.api-sports.io/football/teams/1165.png,22,12,5,5,39,26,11,7,1,3,20,14,11,5,4,2,19,12
+3,4,37,9,Veikkausliiga,LWWWD,same,Qualification for the Europa Conference League first qualifying round,2020-11-14T00:00:00+00:00,1169,Honka,https://media.api-sports.io/football/teams/1169.png,22,9,10,3,26,17,11,5,4,2,13,9,11,4,6,1,13,8
+4,5,36,8,Veikkausliiga,WWLWD,same,,2020-11-14T00:00:00+00:00,1163,Ilves Tampere,https://media.api-sports.io/football/teams/1163.png,22,10,6,6,37,29,11,5,4,2,20,12,11,5,2,4,17,17
+5,6,32,3,Veikkausliiga,WLDWW,same,,2020-11-14T00:00:00+00:00,1166,FC Lahti,https://media.api-sports.io/football/teams/1166.png,22,8,8,6,33,30,11,4,5,2,15,13,11,4,3,4,18,17
+6,7,29,-2,Veikkausliiga,WLLWL,up,,2020-11-14T00:00:00+00:00,689,SJK,https://media.api-sports.io/football/teams/689.png,22,8,5,9,27,29,11,4,2,5,14,17,11,4,3,4,13,12
+7,8,28,-4,Veikkausliiga,LWLLL,down,,2020-11-14T00:00:00+00:00,1172,HIFK Elsinki,https://media.api-sports.io/football/teams/1172.png,22,8,4,10,29,33,11,4,3,4,13,16,11,4,1,6,16,17
+8,9,23,-14,Veikkausliiga,WLLLL,up,,2020-11-14T00:00:00+00:00,587,IFK Mariehamn,https://media.api-sports.io/football/teams/587.png,22,6,5,11,29,43,11,3,3,5,13,19,11,3,2,6,16,24
+9,10,22,-16,Veikkausliiga,LWDWW,down,,2020-11-14T00:00:00+00:00,2080,haka,https://media.api-sports.io/football/teams/2080.png,22,5,7,10,25,41,11,1,2,8,9,25,11,4,5,2,16,16
+10,11,21,-16,Veikkausliiga,WWLWL,same,Qualification for the relegation play-offs,2020-11-14T00:00:00+00:00,1168,Turku PS,https://media.api-sports.io/football/teams/1168.png,22,6,3,13,23,39,11,5,1,5,14,15,11,1,2,8,9,24
+11,12,5,-36,Veikkausliiga,LLLLL,same,Relegation - Ykkonen,2020-11-14T00:00:00+00:00,1167,Rops,https://media.api-sports.io/football/teams/1167.png,22,1,2,19,15,51,11,0,2,9,10,25,11,1,0,10,5,26

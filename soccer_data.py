@@ -1,6 +1,7 @@
 import requests
 from dotenv import dotenv_values
 import json
+import ast
 import pandas as pd
 import numpy as np
 from time import sleep
@@ -72,19 +73,19 @@ def getTeamStats(league_id, season, team_id):
     return data
 
 # Save team stats to a .csv, stats and file name given
-def saveTeamStatsCSV(teams, name):
+def saveTeamStatsCSV(teams, name, season):
     first_team_id = teams["response"][0]["team"]["id"]
-    first_team_stats = getTeamStats(244, 2021, first_team_id)
+    first_team_stats = getTeamStats(244, season, first_team_id)
     df = pd.json_normalize(first_team_stats["response"])
     for team_item in teams["response"][1:6]:
         team_id = team_item["team"]["id"]
-        team_stats = getTeamStats(244, 2021, team_id)
+        team_stats = getTeamStats(244, season, team_id)
         next_row = pd.json_normalize(team_stats["response"])
         df = df.append(next_row, ignore_index=True)
     sleep(70) # due to api calls limit
     for team_item in teams["response"][6:]:
         team_id = team_item["team"]["id"]
-        team_stats = getTeamStats(244, 2021, team_id)
+        team_stats = getTeamStats(244, season, team_id)
         next_row = pd.json_normalize(team_stats["response"])
         df = df.append(next_row, ignore_index=True)
     df.to_csv(name + ".csv", sep=",")
@@ -99,6 +100,18 @@ def getAllFixturesCSV(league_id, season):
     data = response.json()
     df = pd.json_normalize(data["response"])
     df.to_csv(f"fixtures{season}.csv", sep=",")
+
+# The API is inconsistent with this, sometimes there are 3 different standings, you have to adjust the last index by hand
+def getLeaugeStandingsCSV(league_id, season):
+    url = makeUrl("/standings")
+    querystring = {
+        "league" : league_id,
+        "season" : season,
+    }
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    data = response.json()
+    df = pd.json_normalize(data["response"][0]["league"]["standings"][0]) # sometimes this last 0 needs to be 2
+    df.to_csv(f"standings{season}.csv", sep=",")
 
 def getHeadToHeadStats(fixture_file, teams):
     head_to_heads = pd.DataFrame(index=teams, columns=teams)

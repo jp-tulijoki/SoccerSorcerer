@@ -1,0 +1,13 @@
+,rank,points,goalsDiff,group,form,status,description,update,team.id,team.name,team.logo,all.played,all.win,all.draw,all.lose,all.goals.for,all.goals.against,home.played,home.win,home.draw,home.lose,home.goals.for,home.goals.against,away.played,away.win,away.draw,away.lose,away.goals.for,away.goals.against
+0,1,78,42,,,,,2018-10-27T00:00:00+00:00,649,HJK Helsinki,https://media.api-sports.io/football/teams/649.png,33,24,6,3,61,19,,,,,,,,,,,,
+1,2,62,17,,,,,2018-10-27T00:00:00+00:00,1167,Rops,https://media.api-sports.io/football/teams/1167.png,33,18,8,7,42,25,,,,,,,,,,,,
+2,3,58,19,,,,,2018-10-27T00:00:00+00:00,1165,KuPS,https://media.api-sports.io/football/teams/1165.png,33,17,7,9,56,37,,,,,,,,,,,,
+3,4,58,18,,,,,2018-10-27T00:00:00+00:00,1169,Honka,https://media.api-sports.io/football/teams/1169.png,33,15,13,5,51,33,,,,,,,,,,,,
+4,5,49,4,,,,,2018-10-27T00:00:00+00:00,1163,Ilves Tampere,https://media.api-sports.io/football/teams/1163.png,33,14,7,12,45,41,,,,,,,,,,,,
+5,6,41,-6,,,,,2018-10-27T00:00:00+00:00,650,Vaasa PS,https://media.api-sports.io/football/teams/650.png,33,10,11,12,37,43,,,,,,,,,,,,
+6,7,40,-7,,,,,2018-10-27T00:00:00+00:00,1164,Inter Turku,https://media.api-sports.io/football/teams/1164.png,33,10,10,13,37,44,,,,,,,,,,,,
+7,8,40,-8,,,,,2018-10-27T00:00:00+00:00,1166,FC Lahti,https://media.api-sports.io/football/teams/1166.png,33,9,13,11,30,38,,,,,,,,,,,,
+8,9,32,-9,,,,,2018-10-27T00:00:00+00:00,689,SJK,https://media.api-sports.io/football/teams/689.png,33,8,8,17,28,37,,,,,,,,,,,,
+9,10,31,-22,,,,,2018-10-27T00:00:00+00:00,587,IFK Mariehamn,https://media.api-sports.io/football/teams/587.png,33,8,7,18,37,59,,,,,,,,,,,,
+10,11,29,-18,,,,,2018-10-27T00:00:00+00:00,1168,Turku PS,https://media.api-sports.io/football/teams/1168.png,33,7,8,18,37,55,,,,,,,,,,,,
+11,12,24,-30,,,,,2018-10-27T00:00:00+00:00,1170,PS Kemi Kings,https://media.api-sports.io/football/teams/1170.png,33,6,6,21,29,59,,,,,,,,,,,,

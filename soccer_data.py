@@ -1,9 +1,10 @@
 import requests
-from dotenv import dotenv_values
+from dotenv import load_dotenv
 import json
 import pandas as pd
 import numpy as np
 from time import sleep
+import os
 
 from requests.api import head
 
@@ -12,9 +13,9 @@ from requests.api import head
 #       API_URL, which is either 'api-football-v1.p.rapidapi.com' or 
 #       'v3.football.api-sports.io' depending on which subscription you have
 
-config = dotenv_values(".env")
-API_KEY = config["API_KEY"]
-API_URL = config["API_URL"]
+load_dotenv()
+API_KEY = os.environ.get("API_KEY")
+API_URL = os.environ.get("API_URL")
 
 headers = {
     'x-rapidapi-key': API_KEY,

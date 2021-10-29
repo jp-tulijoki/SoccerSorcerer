@@ -5,3 +5,4 @@ soccerenv
 !data/fixtures/*.csv
 !data/standings/*.csv
 __pycache__
+db.sqlite3

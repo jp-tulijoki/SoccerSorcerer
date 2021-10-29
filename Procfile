@@ -1,1 +1,1 @@
-web: python manage.py runserver
+web: gunicorn soccer_sorcerer_app.wsgi

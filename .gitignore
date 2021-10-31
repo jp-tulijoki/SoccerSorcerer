@@ -8,5 +8,6 @@ soccerenv
 !fixtures2020.csv
 !fixtures2021.csv
 !stats.csv
+!fixtures_features.csv
 __pycache__
 db.sqlite3

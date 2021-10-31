@@ -1,80 +1,289 @@
-# This file is unused at the moment, the current functionality will be moved to parse_features!
-# When feature parsing is complete, this file will contain the script for the actual regression.
-# Regression is TODO!
-
+import numpy as np
 import pandas as pd
-import soccer_data as sd
+import pickle
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import cross_val_score
 
-# Read data
-fixtures = pd.read_csv("fixtures_with_weather.csv")
+CURRENT_PARAMS = {
+    'HJK helsinki': {'streak': 2, 'win.percent': 0.5895765472312704, 'rank': 1, 'h2h': {
+        'haka': 0.8571428571428571,
+        'KuPS': 0.42857142857142855,
+        'IFK Mariehamn': 0.7931034482758621,
+        'Honka': 0.42105263157894735,
+        'Inter Turku': 0.41379310344827586,
+        'Kooteepee': 0.8,
+        'FC Lahti': 0.5357142857142857,
+        'SJK': 0.6818181818181818,
+        'HIFK Elsinki': 0.4,
+        'Ilves Tampere': 0.6,
+        'AC oulu': 0.5
+    }}, 
+    'Inter Turku': {'streak': -2, 'win.percent': 0.3737704918032787, 'rank': 2, 'h2h': {
+        'haka': 0.8571428571428571,
+        'IFK Mariehamn': 0.39285714285714285,
+        'Honka': 0.15789473684210525,
+        'HJK helsinki': 0.27586206896551724,
+        'KuPS': 0.3103448275862069,
+        'FC Lahti': 0.2962962962962963,
+        'SJK': 0.2857142857142857,
+        'Kooteepee': 0.8,
+        'HIFK Elsinki': 0.625,
+        'Ilves Tampere': 0.3684210526315789,
+        'AC oulu': 0.5
+    }}, 
+    'KuPS': {'streak': 0, 'win.percent': 0.43278688524590164, 'rank': 3, 'h2h': {
+        'haka': 0.5714285714285714,
+        'IFK Mariehamn': 0.6071428571428571,
+        'Honka': 0.3157894736842105,
+        'Inter Turku': 0.4482758620689655,
+        'HJK helsinki': 0.17857142857142858,
+        'FC Lahti': 0.37037037037037035,
+        'SJK': 0.3333333333333333,
+        'Kooteepee': 0.6,
+        'HIFK Elsinki': 0.625,
+        'Ilves Tampere': 0.35,
+        'AC oulu': 1.0
+    }}, 
+    'Honka': {'streak': 0, 'win.percent': 0.3961352657004831, 'rank': 4, 'h2h': {
+        'HJK helsinki': 0.21052631578947367, 
+        'Inter Turku': 0.5263157894736842, 
+        'KuPS': 0.42105263157894735,  
+        'FC Lahti': 0.4444444444444444, 
+        'SJK': 0.3333333333333333, 
+        'HIFK Elsinki': 0.16666666666666666, 
+        'AC oulu': 1.0, 
+        'Kooteepee': 0.6666666666666666,
+        'IFK Mariehamn': 0.3333333333333333, 
+        'Ilves Tampere': 0.5, 
+        'haka': 0.125
+    }}, 
+    'FC Lahti': {'streak': 0, 'win.percent': 0.3758169934640523, 'rank': 6, 'h2h': {
+        'HJK helsinki': 0.21428571428571427,
+        'haka': 0.25,
+        'IFK Mariehamn': 0.4444444444444444,
+        'Honka': 0.2777777777777778,
+        'Inter Turku': 0.37037037037037035,
+        'Kooteepee': 0.6666666666666666,
+        'SJK': 0.36363636363636365,
+        'HIFK Elsinki': 0.5,
+        'Ilves Tampere': 0.4444444444444444,
+        'AC oulu': 0.0,
+        'KuPS': 0.3333333333333333
+    }}, 
+    'SJK': {'streak': 0, 'win.percent': 0.4225941422594142, 'rank': 7, 'h2h': {
+        'haka': 0.5,
+        'IFK Mariehamn': 0.38095238095238093,
+        'Honka': 0.3333333333333333,
+        'Inter Turku': 0.47619047619047616,
+        'HJK helsinki': 0.13636363636363635,
+        'KuPS': 0.3333333333333333,
+        'FC Lahti': 0.18181818181818182,
+        'Kooteepee': 0.6,
+        'HIFK Elsinki': 0.35294117647058826,
+        'Ilves Tampere': 0.3157894736842105,
+        'AC oulu': 1.0
+    }}, 
+    'HIFK Elsinki': {'streak': 0, 'win.percent': 0.29310344827586204, 'rank': 8, 'h2h': {
+        'haka': 0.5,
+        'IFK Mariehamn': 0.1875,
+        'Honka': 0.6666666666666666,
+        'Inter Turku': 0.1875,
+        'HJK helsinki': 0.2,
+        'KuPS': 0.0625,
+        'FC Lahti': 0.0625,
+        'SJK': 0.35294117647058826,
+        'Kooteepee': 0.4,
+        'Ilves Tampere': 0.06666666666666667,
+        'AC oulu': 1.0
+    }}, 
+    'AC oulu': {'streak': 0, 'win.percent': 0.2, 'rank': 13, 'h2h': {
+        'haka': 0.3333333333333333,
+        'IFK Mariehamn': 0.3333333333333333,
+        'Honka': 0.0,
+        'Inter Turku': 0.5,
+        'HJK helsinki': 0.5,
+        'KuPS': 0.0,
+        'FC Lahti': 0.0,
+        'SJK': 0.0,
+        'Kooteepee': 0.5,
+        'HIFK Elsinki': 0.0,
+        'Ilves Tampere': 0.0
+    }}, 
+    'Kooteepee': {'streak': 0, 'win.percent': 0.15, 'rank': 13, 'h2h': {
+        'haka': 0.5,
+        'IFK Mariehamn': 0.16666666666666666,
+        'Honka': 0.3333333333333333,
+        'Inter Turku': 0.2,
+        'HJK helsinki': 0.0,
+        'KuPS': 0.2,
+        'FC Lahti': 0.0,
+        'SJK': 0.0,
+        'HIFK Elsinki': 0.2,
+        'Ilves Tampere': 0.0,
+        'AC oulu': 0.0
+    }}, 
+    'IFK Mariehamn': {'streak': 0, 'win.percent': 0.37662337662337664, 'rank': 9, 'h2h': {
+        'haka': 0.5714285714285714,
+        'Honka': 0.19047619047619047,
+        'KuPS': 0.25,
+        'Inter Turku': 0.32142857142857145,
+        'HJK helsinki': 0.06896551724137931,
+        'FC Lahti': 0.25925925925925924,
+        'Kooteepee': 0.8333333333333334,
+        'SJK': 0.38095238095238093,
+        'HIFK Elsinki': 0.3125,
+        'Ilves Tampere': 0.42105263157894735,
+        'AC oulu': 0.6666666666666666
+    }}, 
+    'Ilves Tampere': {'streak': -1, 'win.percent': 0.42718446601941745, 'rank': 5, 'h2h': {
+        'haka': 0.75,
+        'IFK Mariehamn': 0.3684210526315789,
+        'JJK': 0.3333333333333333,
+        'Honka': 0.2,
+        'Inter Turku': 0.42105263157894735,
+        'HJK helsinki': 0.15,
+        'KuPS': 0.55,
+        'FC Lahti': 0.3333333333333333,
+        'SJK': 0.47368421052631576,
+        'Kooteepee': 0.6,
+        'HIFK Elsinki': 0.5333333333333333,
+        'AC oulu': 1.0
+    }}, 
+    'haka': {'streak': 0, 'win.percent': 0.275, 'rank': 10, 'h2h': {
+        'IFK Mariehamn': 0.14285714285714285,
+        'Honka': 0.5,
+        'Inter Turku': 0.14285714285714285,
+        'HJK helsinki': 0.0,
+        'KuPS': 0.2857142857142857,
+        'FC Lahti': 0.25,
+        'SJK': 0.25,
+        'Kooteepee': 0.0,
+        'HIFK Elsinki': 0.5,
+        'Ilves Tampere': 0.0,
+        'AC oulu': 0.3333333333333333
+    }}
+}
 
-# Form head-to-head dataframe
-head_to_head = sd.getHeadToHeadStats("fixtures_with_weather.csv", fixtures['teams.home.name'].unique())
+def model_1(fixt):
+    fixtures = fixt.copy()
+    # Select only relevant columns
+    fixtures = fixtures[['team',\
+                         'opponent',\
+                         'home',\
+                         'win.percent',\
+                         'opp.win.percent',\
+                         'h2h.win.percent',\
+                         'opp.h2h.win.percent',\
+                         'team.last.placement',\
+                         'opponent.last.placement',\
+                         'streak',\
+                         'opp.streak',\
+                         'air.temp',\
+                         'rain.amount',\
+                         'humidity',\
+                         'cloud.amount',\
+                         'wind.speed',\
+                         'station.distance',\
+                         'result']]
+    
+    labels_a = [0, 1, 2]
+    cloud_bins = [-1.0, 2.0, 5.0, 10]
+    fixtures['cloud.amount'] = fixtures['cloud.amount'].fillna(fixtures['cloud.amount'].mean())
+    fixtures['cloudy'] = pd.cut(fixtures['cloud.amount'], bins=cloud_bins, labels=labels_a)
+    wind_bins = [-1.0, 3.0, 6.0, 15.0]
+    fixtures['wind.speed'] = fixtures['wind.speed'].fillna(fixtures['wind.speed'].mean())
+    fixtures['windy'] = pd.cut(fixtures['wind.speed'], bins=wind_bins, labels=labels_a)
+    humid_bins = [0.0, 40.0, 80.0, 100.0]
+    fixtures['humidity'] = fixtures['humidity'].fillna(fixtures['humidity'].mean())
+    fixtures['humid'] = pd.cut(fixtures['humidity'], bins=humid_bins, labels=labels_a)
+    #rain_bins = [-1.0, 0.15, 0.6, 10]
+    #fixtures['rainy'] = pd.cut(fixtures['rain.amount'], bins=rain_bins, labels=labels_a)
+    fixtures['air.temp'] = fixtures['air.temp'].fillna(fixtures['air.temp'].mean())
 
-# Select only relevant columns
-fixtures = fixtures[['league.season',\
-                     'teams.home.name',\
-                     'teams.home.winner',\
-                     'teams.away.name',\
-                     'teams.away.winner',\
-                     'goals.home',\
-                     'goals.away',\
-                     'fh.rain.amount',\
-                     'sh.rain.amount',\
-                     'fh.rain.intensity',\
-                     'sh.rain.intensity',\
-                     'fh.humidity',\
-                     'sh.humidity',\
-                     'fh.clouds',\
-                     'sh.clouds',\
-                     'fh.air.temp',\
-                     'sh.air.temp',\
-                     'fh.wind.speed',\
-                     'sh.wind.speed',\
-                     'venue.dist']]
+    station_bins = [0, 3.5, 8.5, 30]
+    fixtures['distance'] = pd.cut(fixtures['station.distance'], bins=station_bins, labels=labels_a)
 
-# Process weather data to match averages, combining first and second half data
-fixtures['rain.amount'] = fixtures[['fh.rain.amount', 'sh.rain.amount']].mean(axis=1)
-fixtures['rain.intensity'] = fixtures[['fh.rain.intensity', 'sh.rain.intensity']].mean(axis=1)
-fixtures['humidity'] = fixtures[['fh.humidity', 'sh.humidity']].mean(axis=1)
-fixtures['clouds'] = fixtures[['fh.clouds', 'sh.clouds']].mean(axis=1)
-fixtures['air.temp'] = fixtures[['fh.air.temp', 'sh.air.temp']].mean(axis=1)
-fixtures['wind.speed'] = fixtures[['fh.wind.speed', 'sh.wind.speed']].mean(axis=1)
+    labels_b = [-1, 0, 1]
+    streak_bins = [-20, -2.5, 2.5, 20]
+    fixtures['streak'] = pd.cut(fixtures['streak'], bins=streak_bins, labels=labels_b)
+    fixtures['opp.streak'] = pd.cut(fixtures['opp.streak'], bins=streak_bins, labels=labels_b)
 
-# Drop first and second half weather data
-fixtures.drop(['fh.rain.amount',\
-               'sh.rain.amount',\
-               'fh.rain.intensity',\
-               'sh.rain.intensity',\
-               'fh.humidity',\
-               'sh.humidity',\
-               'fh.clouds',\
-               'sh.clouds',\
-               'fh.air.temp',\
-               'sh.air.temp',\
-               'fh.wind.speed',\
-               'sh.wind.speed'],\
-               axis=1, inplace=True)
+    fixtures['result'] = fixtures['result'].astype('category')
+    fixtures['result'] = fixtures['result'].cat.reorder_categories(['False', 'Draw', 'True'], ordered=True)
+    catmap_results = dict(zip(fixtures['result'].cat.codes, fixtures['result']))
+    fixtures['result'] = fixtures['result'].cat.codes
+    print(catmap_results)
 
-# Input draws
-fixtures['teams.home.winner'] = fixtures['teams.home.winner'].fillna('Draw')
-fixtures['teams.away.winner'] = fixtures['teams.away.winner'].fillna('Draw')
+    fixtures['team'] = fixtures['team'].astype('category')
+    catmap_team = dict(zip(fixtures['team'].cat.codes, fixtures['team']))
+    fixtures['team'] = fixtures['team'].cat.codes
+    print(catmap_team)
 
-# Parse data so that every match has a row for both the home team and the opponent
-home = fixtures.copy()
-away = fixtures.copy()
-home['team'] = home['teams.home.name']
-away['team'] = away['teams.away.name']
-home['opponent'] = home['teams.away.name']
-away['opponent'] = away['teams.home.name']
-home['home'] = 1
-away['home'] = 0
-home['result'] = home['teams.home.winner']
-away['result'] = away['teams.away.winner']
-home.drop(['teams.home.name', 'teams.away.name', 'teams.home.winner', 'teams.away.winner'], axis=1, inplace=True)
-away.drop(['teams.home.name', 'teams.away.name', 'teams.home.winner', 'teams.away.winner'], axis=1, inplace=True)
-fixtures = pd.concat([home, away])
+    fixtures['opponent'] = fixtures['opponent'].astype('category')
+    catmap_opp = dict(zip(fixtures['opponent'].cat.codes, fixtures['opponent']))
+    fixtures['opponent'] = fixtures['opponent'].cat.codes
+    print(catmap_opp)
 
-#print(fixtures.head(10))
+    fixtures = fixtures.sample(frac=1)
+    fixtures.to_csv("fixtures_features_test.csv", sep=",")
+    X = fixtures.drop(['cloud.amount', 'wind.speed', 'humidity', 'rain.amount', 'station.distance', 'result'], axis=1)
+    Y = fixtures['result']
 
-head_to_head.to_csv('hth.csv', sep=',')
+    X_train = X[:3300]
+    Y_train = Y[:3300]
+    X_test = X[3300:]
+    Y_test = Y[3300:]
+
+    model = LinearRegression()
+    lin = model.fit(X_train, Y_train)
+    score = lin.score(X_test, Y_test)
+    print(score)
+    print(cross_val_score(model, X, Y))
+
+    model = {'model': model,\
+             'catmap_results': catmap_results,\
+             'catmap_team': {val: key for key, val in catmap_team.items()},\
+             'catmap_opp': {val: key for key, val in catmap_opp.items()}}
+
+    pickle.dump(model, open('model_1.pkl', 'wb'))
+
+def predict(team, opponent, home, cloudy, windy, humid, air_temp):
+    data = pickle.load(open('model_1.pkl', 'rb'))
+    model = data['model']
+    catmap_results = data['catmap_results']
+    catmap_team = data['catmap_team']
+    catmap_opp = data['catmap_opp']
+
+    x = [[catmap_team[team],\
+         catmap_opp[opponent],\
+         home,\
+         CURRENT_PARAMS[team]['win.percent'],\
+         CURRENT_PARAMS[opponent]['win.percent'],\
+         CURRENT_PARAMS[team]['h2h'][opponent],\
+         CURRENT_PARAMS[opponent]['h2h'][team],\
+         CURRENT_PARAMS[team]['rank'],\
+         CURRENT_PARAMS[opponent]['rank'],\
+         CURRENT_PARAMS[team]['streak'],\
+         CURRENT_PARAMS[opponent]['streak'],\
+         air_temp,\
+         cloudy,\
+         windy,\
+         humid,\
+         0]]
+
+    pred = model.predict(x)[0]
+    print(pred)
+    pred = int(round(pred))
+    pred = catmap_results[pred]
+
+    if pred == 'False':
+        return 'Loss'
+    if pred == 'True':
+        return 'Win'
+    return 'Draw'
+
+
+#fixtures = pd.read_csv("fixtures_features.csv")
+#model_1(fixtures)
+
+print(predict("HJK helsinki", "AC oulu", 1, 0, 1, 1, 15))

@@ -1,15 +1,13 @@
 from pathlib import Path
 from dotenv import load_dotenv
 import os
-if os.environ.get("HEROKU"):
-    import django_heroku
-
+import django_heroku
 
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["soccersorcerer.herokuapp.com"]
 
@@ -92,5 +90,4 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-if os.environ.get("HEROKU"):
-    django_heroku.settings(locals())
+django_heroku.settings(locals())

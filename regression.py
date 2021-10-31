@@ -277,13 +277,13 @@ def predict(team, opponent, home, cloudy, windy, humid, air_temp):
     pred = catmap_results[pred]
 
     if pred == 'False':
-        return 'Loss'
+        return 'Away win'
     if pred == 'True':
-        return 'Win'
+        return 'Home win'
     return 'Draw'
 
 
-#fixtures = pd.read_csv("fixtures_features.csv")
-#model_1(fixtures)
+fixtures = pd.read_csv("fixtures_features.csv")
+model_1(fixtures)
 
 print(predict("HJK helsinki", "AC oulu", 1, 0, 1, 1, 15))

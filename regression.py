@@ -283,7 +283,7 @@ def predict(team, opponent, home, cloudy, windy, humid, air_temp):
     return 'Draw'
 
 
-#fixtures = pd.read_csv("fixtures_features.csv")
-#model_1(fixtures)
+fixtures = pd.read_csv("fixtures_features.csv")
+model_1(fixtures)
 
 #print(predict("HJK helsinki", "AC oulu", 1, 0, 1, 1, 15))

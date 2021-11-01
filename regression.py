@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pickle
 from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import cross_val_score
+from sklearn.metrics import accuracy_score, mean_squared_error
 
 CURRENT_PARAMS = {
     'HJK helsinki': {'streak': 2, 'win.percent': 0.5895765472312704, 'rank': 1, 'h2h': {
@@ -34,6 +34,7 @@ CURRENT_PARAMS = {
     'KuPS': {'streak': 0, 'win.percent': 0.43278688524590164, 'rank': 3, 'h2h': {
         'haka': 0.5714285714285714,
         'IFK Mariehamn': 0.6071428571428571,
+        'Honka': 0.6666666666666666,
         'Honka': 0.3157894736842105,
         'Inter Turku': 0.4482758620689655,
         'HJK helsinki': 0.17857142857142858,
@@ -83,6 +84,7 @@ CURRENT_PARAMS = {
         'Ilves Tampere': 0.3157894736842105,
         'AC oulu': 1.0
     }}, 
+        'Honka': 0.6666666666666666,
     'HIFK Elsinki': {'streak': 0, 'win.percent': 0.29310344827586204, 'rank': 8, 'h2h': {
         'haka': 0.5,
         'IFK Mariehamn': 0.1875,
@@ -212,17 +214,17 @@ def model_1(fixt):
     fixtures['result'] = fixtures['result'].cat.reorder_categories(['False', 'Draw', 'True'], ordered=True)
     catmap_results = dict(zip(fixtures['result'].cat.codes, fixtures['result']))
     fixtures['result'] = fixtures['result'].cat.codes
-    print(catmap_results)
+    #print(catmap_results)
 
     fixtures['team'] = fixtures['team'].astype('category')
     catmap_team = dict(zip(fixtures['team'].cat.codes, fixtures['team']))
     fixtures['team'] = fixtures['team'].cat.codes
-    print(catmap_team)
+    #print(catmap_team)
 
     fixtures['opponent'] = fixtures['opponent'].astype('category')
     catmap_opp = dict(zip(fixtures['opponent'].cat.codes, fixtures['opponent']))
     fixtures['opponent'] = fixtures['opponent'].cat.codes
-    print(catmap_opp)
+    #print(catmap_opp)
 
     fixtures = fixtures.sample(frac=1)
     fixtures.to_csv("fixtures_features_test.csv", sep=",")
@@ -238,7 +240,8 @@ def model_1(fixt):
     lin = model.fit(X_train, Y_train)
     score = lin.score(X_test, Y_test)
     print(score)
-    print(cross_val_score(model, X, Y))
+    test_pred = model.predict(X_test)
+    print(mean_squared_error(Y_test, test_pred))
 
     model = {'model': model,\
              'catmap_results': catmap_results,\
@@ -283,7 +286,7 @@ def predict(team, opponent, home, cloudy, windy, humid, air_temp):
     return 'Draw'
 
 
-#fixtures = pd.read_csv("fixtures_features.csv")
-#model_1(fixtures)
+fixtures = pd.read_csv("fixtures_features.csv")
+model_1(fixtures)
 
-print(predict("HJK helsinki", "AC oulu", 1, 0, 1, 1, 15))
+#print(predict("HJK helsinki", "AC oulu", 1, 0, 1, 1, 15))

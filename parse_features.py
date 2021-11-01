@@ -107,20 +107,7 @@ def calculate_win_percentage(fixtures):
         else:
             total_wins[opponent] += 1
             h2h_wins[opponent][team] += 1
-        
-    for team in fixtures['teams.home.name'].unique():
-        print("----")
-        print(team)
-        print(total_wins[team] / total_matches[team])
-        print("-vv-")
-        for opponent in fixtures['teams.away.name'].unique():
-            if team == opponent:
-                continue
-            if h2h_matches[team][opponent] == 0:
-                print("'" + opponent + "': 0.5,")
-            else:
-                print("'" + opponent + "': " + str(h2h_wins[team][opponent] / h2h_matches[team][opponent]) + ",")
-
+    
     fixt['home.win.percent'] = team_total_win
     fixt['away.win.percent'] = opponent_total_win
     fixt['home.h2h.win.percent'] = team_h2h_win

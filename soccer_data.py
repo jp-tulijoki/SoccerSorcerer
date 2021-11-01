@@ -145,13 +145,13 @@ def getUpcomingFixtures(fixture_file):
 #getAllFixturesCSV(244, 2020)
 #getAllFixturesCSV(244, 2021)
 
-stats = pd.read_csv("stats.csv")
-teams = stats["team.name"]
+#stats = pd.read_csv("stats.csv")
+#teams = stats["team.name"]
 
-hth_stats_2019 = getHeadToHeadStats("fixtures2019.csv", teams)
-hth_stats_2020 = getHeadToHeadStats("fixtures2020.csv", teams)
-hth_stats_2021 = getHeadToHeadStats("fixtures2021.csv", teams)
+#hth_stats_2019 = getHeadToHeadStats("fixtures2019.csv", teams)
+#hth_stats_2020 = getHeadToHeadStats("fixtures2020.csv", teams)
+#hth_stats_2021 = getHeadToHeadStats("fixtures2021.csv", teams)
 
-hth_stats = hth_stats_2019 + hth_stats_2020 + hth_stats_2021
+#hth_stats = hth_stats_2019 + hth_stats_2020 + hth_stats_2021
 
-upcoming = getUpcomingFixtures("fixtures2021.csv")
+#upcoming = getUpcomingFixtures("fixtures2021.csv")

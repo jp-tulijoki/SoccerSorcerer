@@ -7,6 +7,9 @@
 
   <body>
     <h1>Soccer Sorcerer</h1>
+    <p>Select the match of your choice and get two differently calculated predictions.
+    Sit back, grab your snacks and enjoy the game.
+    If you bet money, bet only what you can lose.</p>
     <h2>Select match</h2>
 
     <form method="POST" action="/predict">
@@ -41,6 +44,26 @@
         <option>KuPS</option>
         <option>SJK</option>
       </select>
+      <label for"cloudiness">Cloudiness</label>
+      <select type="text" id="cloudiness" name="cloudiness">
+        <option>Clear sky</option>
+        <option>Half-cloudy</option>
+        <option>Cloudy</option>
+      </select>
+      <label for"wind">Wind</label>
+      <select type="text" id="wind" name="wind">
+        <option>Calm</option>
+        <option>Windy</option>
+        <option>Stormy</option>
+      </select>
+      <label for="humidity">Humidity</label>
+      <select type="text" id="humidity" name="humidity">
+        <option>Dry</option>
+        <option>Average</option>
+        <option>Humid</option>
+      </select>
+      <label for="temperature">Temperature (between -30&#8451 and 40&#8451)</label>
+      <input type="number" id="temperature" name="temperature" min="-30" max="40" value=20 required>
       <br /><br />
       <input type="submit" value="Submit!" />
     </form>
@@ -48,8 +71,11 @@
     {% if error %}
     <p>{{error}}</p>
     {% endif %} {% if home_win %}
-    <h2>Probabilities for {{home_team}} vs {{away_team}}:</h2>
+    <h2>Prediction for {{home_team}} vs {{away_team}}:</h2>
+    <h3>Probabilistic model gives the following probabilities</h3>
     <p>Home win: {{home_win}} Draw: {{draw}} Away win: {{away_win}}</p>
+    <h3>Regression model gives the following prediction</h3>
+    <p>{{regression_prediction}}
     {% endif %}
   </body>
 </html>

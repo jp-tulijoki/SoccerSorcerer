@@ -280,9 +280,9 @@ def predict(team, opponent, home, cloudy, windy, humid, air_temp):
     pred = catmap_results[pred]
 
     if pred == 'False':
-        return 'Loss'
+        return 'Away win'
     if pred == 'True':
-        return 'Win'
+        return 'Home win'
     return 'Draw'
 
 
